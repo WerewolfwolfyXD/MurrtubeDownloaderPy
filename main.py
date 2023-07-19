@@ -1,7 +1,7 @@
 import os
+import ffmpy
 import re
 import httpx
-
 import requests
 
 
@@ -25,15 +25,18 @@ class Downloader:
 
 
 class Muttertube:
-    def __init__(self, base_home: str, storage_path=None, extra_url:list=None):
+    def __init__(self, base_home: str, storage_path=None, extra_url: list = None, ffmpeg2mp4: bool = True):
         self.index_m3u8 = "index.m3u8"
         self.base_home = base_home + "/"
         self.storage_url = "https://storage.murrtube.net/murrtube-production/"
+        self.ffmpeg2mp4 = ffmpeg2mp4
         if storage_path is not None:
             self.storage_path = storage_path + "/"
             self.aioname = f"""{self.base_home}/{self.storage_path.replace("/", "")}"""
         elif extra_url is not None:
-            self.storage_path = extra_url[0].split("?")[0].replace("https://storage.murrtube.net/murrtube-production/", "").replace("thumbnail.jpg", "")
+            self.storage_path = extra_url[0].split("?")[0].replace("https://storage.murrtube.net/murrtube-production/",
+                                                                   "").replace(
+                "http://storage.murrtube.net/murrtube-production/", "").replace("thumbnail.jpg", "").replace(" ", "")
             self.aioname = extra_url[1].replace("https://murrtube.net/videos", "").replace("/", "")
         else:
             raise Exception("Unknown Select")
@@ -103,16 +106,18 @@ class Muttertube:
             self.thumbnail_d(f"{self.base_home}/{self.aioname}")
             for d in range(0, len(ccrl)):
                 #     downloader.Downloader(url=down_url.format(self.storage_url, self.storage_path, ccrl[d]), file_path=f"{downpath}/{ccrl[d]}").start()
-                with open(f"{self.aioname}/{ccrl[d]}", "wb") as f:
+                fileg = f"{self.aioname}/{ccrl[d]}"
+                with open(fileg, "wb") as f:
                     dl = down_url.format(self.storage_url, self.storage_path, ccrl[d])
-                    print(f"{d+1}/{len(ccrl)} | 下载中: {dl}")
+                    print(f"{d + 1}/{len(ccrl)} | 下载中: {dl}")
                     req = requests.get(dl).content
                     f.write(req)
                     f.flush()
                     f.close()
+                self.ffmpeg4if(f"{self.aioname}/{ccrl[d]}")
         else:
             self.thumbnail_d(f"{self.base_home}/{self.aioname}")
-            aiofn = f"{self.base_home}/{self.aioname}/" + self.aioname + ".mp4"
+            aiofn = f"{self.base_home}/{self.aioname}/" + self.aioname + ".ts"
             print(f"合并文件下载到: {aiofn}")
             print(f"尝试合并文件到: {aiofn}")
             with open(aiofn, "wb") as aio:
@@ -120,9 +125,24 @@ class Muttertube:
                     # downloader.Downloader(url=down_url.format(self.storage_url, self.storage_path, ccrl[d]),
                     # file_path=f"{downpath}/{ccrl[d]}").start()
                     dl = down_url.format(self.storage_url, self.storage_path, ccrl[d])
-                    print(f"块 {d+1}/{len(ccrl)} | 下载中: {dl}")
+                    print(f"块 {d + 1}/{len(ccrl)} | 下载中: {dl}")
                     req = requests.get(dl).content
                     aio.write(req)
+            self.ffmpeg4if(aiofn)
+
+    def ffmpeg4if(self, inf):
+        inf = os.path.abspath(inf)
+        print(f"""[FFMPEG4IF] Running:{inf.replace(".ts", ".mp4")}""")
+        if self.ffmpeg2mp4 is not False:
+            try:
+                inff = ffmpy.FFmpeg(
+                    inputs={inf: None},
+                    outputs={inf.replace(".ts", ".mp4"): None}
+                )
+                inff.run()
+                print("""[FFMPEG4IF] Finished.""")
+            except Exception as err:
+                print(f"""[FFMPEG4IF] Err, Couldn't Convert. {err} """)
 
     def thumbnail_d(self, downpath):
         thumbnailu = f"""{downpath}/thumbnail.jpg"""
@@ -190,15 +210,16 @@ def extra_url(url):
     return [src_match, url]
 
 
-def mutterbate_setting(base_home):
+def mutterbate_setting(base_home, ffmpeg2mp4: bool):
     mymut = Muttertube(
         # storage_path=input("VideoPath(e.g.: /c02/xxxxxxxxxxxxxxxx/): "),
         extra_url=extra_url(input("VideoPath(e.g.: https://murrtube.net/videos/...): ")),
-        base_home=base_home
+        base_home=base_home,
+        ffmpeg2mp4=ffmpeg2mp4
     )
     indexm3u8 = mymut.m3u8_get("index.m3u8")
     mymut.m3u8_index(indexm3u8)
 
 
 if __name__ == '__main__':
-    mutterbate_setting(base_home=".\downloaded")
+    mutterbate_setting(base_home="./", ffmpeg2mp4=True)
