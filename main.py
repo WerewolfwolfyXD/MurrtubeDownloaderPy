@@ -6,6 +6,7 @@ import requests
 
 
 class Downloader:
+    @staticmethod
     def split_list(lst):
         n = len(lst)
         num_lists = 10
@@ -48,6 +49,11 @@ class Muttertube:
             contentf.pop(0)
         else:
             raise Exception(f"{contentf}\nIndex.m3u8 Formatter @ Wrong Extension: No #EXTM3U")
+        while 1:
+            try:
+                contentf.pop(contentf.index(""))
+            except:
+                break
         print("选择需要的版本（画质区别）下载：")
         contentl = []
         for i in range(0, len(contentf), 2):
@@ -88,33 +94,33 @@ class Muttertube:
         print(ccrl)
         # 检测目录创建情况
 
-        if not os.path.exists(self.aioname): os.mkdir(self.aioname)
+        if not os.path.exists(f"{self.base_home}/{self.aioname}"): os.mkdir(f"{self.base_home}/{self.aioname}")
         down_url = "{}/{}/{}"
         #
         print(f"""0.分段下载\n1.合并下载""")
         if int(input(": ")) == 0:
             print("分段下载: ")
-            self.thumbnail_d(self.aioname)
+            self.thumbnail_d(f"{self.base_home}/{self.aioname}")
             for d in range(0, len(ccrl)):
                 #     downloader.Downloader(url=down_url.format(self.storage_url, self.storage_path, ccrl[d]), file_path=f"{downpath}/{ccrl[d]}").start()
                 with open(f"{self.aioname}/{ccrl[d]}", "wb") as f:
                     dl = down_url.format(self.storage_url, self.storage_path, ccrl[d])
-                    print(f"{d} | 下载中: {dl}")
+                    print(f"{d+1}/{len(ccrl)} | 下载中: {dl}")
                     req = requests.get(dl).content
                     f.write(req)
                     f.flush()
                     f.close()
         else:
-            self.thumbnail_d(self.aioname)
-            aiofn = self.base_home+"/"+self.aioname + ".mp4"
-            print(f"合并文件下载到: {self.base_home}/{aiofn}")
-            print(f"尝试合并文件到 {self.base_home}/{aiofn}")
+            self.thumbnail_d(f"{self.base_home}/{self.aioname}")
+            aiofn = f"{self.base_home}/{self.aioname}/" + self.aioname + ".mp4"
+            print(f"合并文件下载到: {aiofn}")
+            print(f"尝试合并文件到: {aiofn}")
             with open(aiofn, "wb") as aio:
                 for d in range(0, len(ccrl)):
                     # downloader.Downloader(url=down_url.format(self.storage_url, self.storage_path, ccrl[d]),
                     # file_path=f"{downpath}/{ccrl[d]}").start()
                     dl = down_url.format(self.storage_url, self.storage_path, ccrl[d])
-                    print(f"块 {d} | 下载中: {dl}")
+                    print(f"块 {d+1}/{len(ccrl)} | 下载中: {dl}")
                     req = requests.get(dl).content
                     aio.write(req)
 
@@ -186,7 +192,7 @@ def extra_url(url):
 
 def mutterbate_setting(base_home):
     mymut = Muttertube(
-        # input("VideoPath(e.g.: /c02/xxxxxxxxxxxxxxxx/): "),
+        # storage_path=input("VideoPath(e.g.: /c02/xxxxxxxxxxxxxxxx/): "),
         extra_url=extra_url(input("VideoPath(e.g.: https://murrtube.net/videos/...): ")),
         base_home=base_home
     )
