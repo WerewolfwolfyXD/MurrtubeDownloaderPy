@@ -45,9 +45,9 @@ class CLI:
             mymut.m3u8_index(indexm3u8)
         except:
             self.print_usage()
-    @staticmethod
-    def print_usage():
-        print(f""" Help usage: (Last edit ) MurrtubeDownloaderPy <url> <@Nullable save_path | default = "./"> <@Nullable ffmpeg2mp4 | default = "true"> """)
+
+    def print_usage(self):
+        print(f"""MurrtubeDownloaderPy({self.author}) {self.version} \n{self.description} \n{self.changelog} \n Help usage: (Last edit ) MurrtubeDownloaderPy <url> <@Nullable save_path | default = "./"> <@Nullable ffmpeg2mp4 | default = "true"> """)
 
 
 class Downloader:
