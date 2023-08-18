@@ -33,7 +33,7 @@ class CLI:
             self.print_usage()
             exit(5)
         try:
-            parsed_save_path = cmd[2]
+            parsed_save_path = cmd[1]
         except:
             parsed_save_path = "./"
         try:
