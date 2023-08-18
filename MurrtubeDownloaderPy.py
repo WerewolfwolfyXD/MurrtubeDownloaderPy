@@ -40,17 +40,16 @@ class CLI:
             parsed_ffmpeg2mp4 = True if cmd[3] == "true" else False
         except:
             parsed_ffmpeg2mp4 = True
-        try:
-            mymut = Muttertube(
-                extra_url=extra_url(parsed_url),
-                base_home=parsed_save_path,
-                ffmpeg2mp4=parsed_ffmpeg2mp4,
-                videotitle_asfiletitle=True
-            )
-            indexm3u8 = mymut.m3u8_get("index.m3u8")
-            mymut.m3u8_index(indexm3u8)
-        except:
-            self.print_usage()
+
+        mymut = Muttertube(
+            extra_url=extra_url(parsed_url),
+            base_home=parsed_save_path,
+            ffmpeg2mp4=parsed_ffmpeg2mp4,
+            videotitle_asfiletitle=True
+        )
+        indexm3u8 = mymut.m3u8_get("index.m3u8")
+        mymut.m3u8_index(indexm3u8)
+
 
     def print_usage(self):
         print(f"""MurrtubeDownloaderPy({self.author}) {self.version} \n{self.description} \n{self.changelog} \n Help usage: (Last edit ) MurrtubeDownloaderPy <url> <@Nullable save_path | default = "./"> <@Nullable ffmpeg2mp4 | default = "true"> """)
@@ -296,7 +295,43 @@ def murrtube_setting(base_home, ffmpeg2mp4: bool):
         extra_url=extra_url(input("VideoPath(e.g.: https://murrtube.net/v/...): ")),
         base_home=base_home,
         ffmpeg2mp4=ffmpeg2mp4,
-        videotitle_asfiletitle=True
+        videotitle_asfiletitle=Trueimport locale
+import os
+import sys
+import re
+import httpx
+import requests
+from language import LanguageFormatter
+
+global lformat
+lformat = LanguageFormatter(locale.getdefaultlocale())
+
+class CLI:
+    def __init__(self, cmd: list):
+        self.command = cmd
+        self.author = "thisCarbondoXD, forCarbondoXD-Organizations of Github"
+        self.version = "20230818AFT.GITHUB"
+        self.description = """"""
+        self.changelog = f"""CHANGELOG {self.version}
+            Changed the url, add demo CLI, add authpass detect, add more-language-support(Thanks for yours translations!)
+        """
+
+    def parse(self):
+        cmd = self.command
+        if cmd[0] == "-m":
+            cmd.pop(0)
+        elif cmd[0] == "-h":
+            self.print_usage()
+        elif cmd[0][:1] == "-":
+            self.print_usage()
+        try:
+            parsed_url = cmd[0]
+        except:
+            self.print_usage()
+            exit(5)
+        try:
+            parsed_save_path = cmd[1]
+
     )
     indexm3u8 = mymut.m3u8_get("index.m3u8")
     mymut.m3u8_index(indexm3u8)
