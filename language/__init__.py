@@ -38,11 +38,20 @@ class LanguageFormatter:
         }
         """
         if os.path.exists(langfile_name):
-            ff = open(langfile_name, 'r+', encoding=self.locale1)
-            content = ff.read()
+            try:
+                ff = self.readff(langfile_name, self.locale1)
+                content = ff.read()
+            except:
+                ff = self.readff(langfile_name, "utf-8")
+                content = ff.read()
+        
             ff.close()
 
         self.content = json.loads(content)
-
+        
+    @staticmethod
+    def readff(langfile_name, encoding_way):
+        return open(langfile_name, 'r+', encoding=encoding_way)
+    
     def lang(self, key):
         return self.content[key].__str__()
