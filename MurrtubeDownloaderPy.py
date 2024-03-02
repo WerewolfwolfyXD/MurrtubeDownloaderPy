@@ -7,7 +7,7 @@ import requests
 from language import LanguageFormatter
 
 global lformat
-lformat = LanguageFormatter(locale.getdefaultlocale())
+lformat = LanguageFormatter(locale.getlocale())
 
 class CLI:
     def __init__(self, cmd: list):
