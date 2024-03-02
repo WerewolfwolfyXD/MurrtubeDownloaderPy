@@ -52,7 +52,7 @@ Changed Murrtube x/video/x to x/v/x
 Support CLI
 <br />
 <br />
-'''shell
+```shell
 <python_executable> -m MurrtubeDownloaderPy <url> <part/merge> <@Nullable save_path | default = "./"> <@Nullable ffmpeg2mp4 | default = "true">
 <br />
 或者(or)
@@ -60,11 +60,11 @@ Support CLI
 <python_executable> -m MurrtubeDownloaderPy -h
 <br />
 使用这个获取帮助(Execute it for help)
-'''
+```
 <br />
 <br />
-# 需要在PATH中设置有ffmpeg，需要安装ffmpeg 、 可以选择无ffmpeg版本
-# It is necessary to set ffmpeg in the PATH, install ffmpeg, or choose a version without ffmpeg
+__需要在PATH中设置有ffmpeg，需要安装ffmpeg 、 可以选择无ffmpeg版本__
+__It is necessary to set ffmpeg in the PATH, install ffmpeg, or choose a version without ffmpeg__
 
 [^website]: murrtube.net
 [^ffmpeg_lic]: [GNU Lesser General Public License (LGPL)](https://www.gnu.org/licenses/#LGPL), [GNU General Public License (GPL)](https://www.gnu.org/licenses/#GPL)
