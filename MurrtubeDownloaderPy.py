@@ -41,7 +41,7 @@ class CLI:
         except:
             parsed_ffmpeg2mp4 = True
 
-        mymut = Muttertube(
+        mymut = Murrtube(
             extra_url=extra_url(parsed_url),
             base_home=parsed_save_path,
             ffmpeg2mp4=parsed_ffmpeg2mp4,
@@ -73,7 +73,7 @@ class Downloader:
         return result
 
 
-class Muttertube:
+class Murrtube:
     def __init__(self, base_home: str, storage_path=None, extra_url: list = None, ffmpeg2mp4: bool = True,
                  videotitle_asfiletitle: bool = True):
         self.index_m3u8 = "index.m3u8"
@@ -290,7 +290,7 @@ def getSrcMatched(url, AAC_BYPASS_COOKIES, something_with):
 
 
 def murrtube_setting(base_home, ffmpeg2mp4: bool):
-    mymut = Muttertube(
+    mymut = Murrtube(
         # storage_path=input("VideoPath(e.g.: /c02/xxxxxxxxxxxxxxxx/): "),
         extra_url=extra_url(input("URL (https://murrtube.net/v/...): ")),
         base_home=base_home,
