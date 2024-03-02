@@ -40,7 +40,7 @@ python3 MurrtubeDownloaderPy.py
 > [!NOTE]
 > __branch$230818_urlfix__: Outer Support -> ffmpeg licenses[^ffmpeg_lic]
 
-## ⬆️ 更新内容 | Updated Content
+## ⬆️ 更新内容 | Updated Content of This Branch
 
 由于Murrtube的x/video/x变成了x/v/x，随着更改了。
 <br />
@@ -54,12 +54,11 @@ Support CLI
 <br />
 ```shell
 <python_executable> -m MurrtubeDownloaderPy <url> <part/merge> <@Nullable save_path | default = "./"> <@Nullable ffmpeg2mp4 | default = "true">
-<br />
+
 或者(or)
-<br />
-<python_executable> -m MurrtubeDownloaderPy -h
-<br />
 使用这个获取帮助(Execute it for help)
+
+<python_executable> -m MurrtubeDownloaderPy -h
 ```
 <br />
 <br />
