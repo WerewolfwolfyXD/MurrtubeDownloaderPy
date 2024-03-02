@@ -37,6 +37,9 @@ python3 MurrtubeDownloaderPy.py
 >
 > We still don't know what license is __Murrtube__ using, so we use our license!
 
+> [!NOTE]
+> __branch$230818_urlfix__: Outer Support -> ffmpeg licenses[^ffmpeg_lic]
+
 ## ⬆️ 更新内容 | Updated Content
 
 由于Murrtube的x/video/x变成了x/v/x，随着更改了。
@@ -64,4 +67,4 @@ Support CLI
 # It is necessary to set ffmpeg in the PATH, install ffmpeg, or choose a version without ffmpeg
 
 [^website]: murrtube.net
-[^website]: murrtube.net
+[^ffmpeg_lic]: [GNU Lesser General Public License (LGPL)](https://www.gnu.org/licenses/#LGPL), [GNU General Public License (GPL)](https://www.gnu.org/licenses/#GPL)
