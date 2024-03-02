@@ -5,6 +5,9 @@
 ![GitHub forks](https://img.shields.io/github/forks/forCarbondoXD/MurrtubeDownloaderPy)
 ![GitHub issues](https://img.shields.io/github/issues/forCarbondoXD/MurrtubeDownloaderPy)
 
+![Attention](https://img.shields.io/badge/Website%20Content%20NSFW-red)
+
+
 ## 📕 简介 | Description
 
 这是一个工具用来下载网站 _murrtube.net_[^website] 的视频内容，项目开源且遵循 __Murrtube__ 的协议；请合理使用，作为开源开发者，我不会承担任何法律行为！
