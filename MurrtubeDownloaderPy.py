@@ -292,7 +292,7 @@ def getSrcMatched(url, AAC_BYPASS_COOKIES, something_with):
 def murrtube_setting(base_home, ffmpeg2mp4: bool):
     mymut = Muttertube(
         # storage_path=input("VideoPath(e.g.: /c02/xxxxxxxxxxxxxxxx/): "),
-        extra_url=extra_url(input("VideoPath(e.g.: https://murrtube.net/v/...): ")),
+        extra_url=extra_url(input("URL (https://murrtube.net/v/...): ")),
         base_home=base_home,
         ffmpeg2mp4=ffmpeg2mp4,
         videotitle_asfiletitle=True
